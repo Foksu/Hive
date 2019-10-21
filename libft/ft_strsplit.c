@@ -1,28 +1,67 @@
+#include <stdlib.h>
 #include "libft.h"
 
-char	**ft_strsplit(char const *s, char c)
+static int		ft_nbw(const char *str, char c)
 {
-    size_t	i;
-    size_t	j;
-    size_t	k;
-    char	**w;
+    int word;
 
-    i = 0;
-    k = 0;
-    if (!s || !(w = (char **)malloc(sizeof(char *) * (ft_wordcount(s, c) + 1))))
-        return (NULL);
-    while (i < ft_wordcount(s, c))
+    word = 0;
+    if (*str != c && *str)
     {
-        if (!(w[i] = (char *)malloc(sizeof(char) * (ft_wordlen(&s[k], c) + 1))))
-            return (NULL);
-        j = 0;
-        while (s[k] == c)
-            k += 1;
-        while (s[k] != c && s[k])
-            w[i][j++] = s[k++];
-        w[i][j] = '\0';
-        i += 1;
+        str++;
+        word++;
     }
-    w[i] = NULL;
-    return (w);
+    while (*str)
+    {
+        while (*str == c)
+        {
+            str++;
+            if (*str != c && *str)
+                word++;
+        }
+        str++;
+    }
+    return (word);
+}
+
+static int		ft_ln(const char *str, char c)
+{
+    int count;
+
+    count = 0;
+    while (*str != c && *str)
+    {
+        count++;
+        str++;
+    }
+    return (count);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+    int		j;
+    int		i;
+    char	**spt;
+
+    j = 0;
+    i = 0;
+    if (!s || (!(spt = (char **)malloc(sizeof(char *) * (ft_nbw(s, c) + 1)))))
+        return (NULL);
+    while (*s)
+    {
+        while (*s == c && *s)
+            s++;
+        if (*s != c && *s)
+        {
+            if (!(spt[j] = (char *)malloc(sizeof(char) * (ft_ln(s, c) + 1))))
+                return (NULL);
+            while (*s && *s != c)
+                spt[j][i++] = (char)*s++;
+            spt[j][i] = '\0';
+            j++;
+            i = 0;
+        }
+    }
+    spt[j] = NULL;
+    return (spt);
 }

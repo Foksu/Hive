@@ -1,3 +1,28 @@
+/*
+ *
+ *	Salut la nouvelle promo merci de remercier les contributeurs
+ *
+ *	https://github.com/QuentinPerez
+ *	https://github.com/mfontain
+ *	https://github.com/alex8092
+ *	https://github.com/gabtoubl
+ *	https://github.com/soyel
+ *	https://github.com/stherman
+ *	https://github.com/jplot
+ *
+ */
+
+/*
+** author : qperez
+** HardCore + strtrim + Fixes: mfontain
+** Fixes strsplit, strequ: gabtoubl
+** Fixes strsplit, strjoin, strsub, strtrim, itoa, strequ, strnequ: stherman
+** Crash handle : ele-goug
+** Detailed error messages : jpucelle
+**
+** Any segfault ? Probably caused by a NULL test. ex : ft_memset(NULL, 0, 0);
+*/
+
 #ifdef __linux__
 #define SIGEMT 7
 #endif
@@ -99,7 +124,14 @@ int					main(void)
     printf("[\033[33mYellow Tests\033[0m] are Hardcore\n");
     i = 0;
     memset(test, 0, D_TEST);
-
+/*
+ * Si vous n'avez pas la fonction il suffit de mettre en commentaire
+ */
+/*
+ * Example : vous n'avez pas memset vous commentez
+ * // #define D_MEMSET
+ * // D_ADD_TEST(...)
+ */
 #define	D_MEMSET
     D_ADD_HCTEST(memset);
 #define	D_BZERO
@@ -245,6 +277,10 @@ void	uf_del_callback(void *d, size_t s)
     free(d);
     (void)s;
 }
+
+/*
+** Thx pmotte for the test
+*/
 
 #ifdef  D_LSTMAP
 
@@ -784,7 +820,7 @@ int				uf_test_strequ(void)
     ft_strequ("", NULL);
     ft_strequ(NULL, "");
     ret = 0;
-    str = strdup("abc");
+    str = strdup("abc"); /* FIX un faux OK si l'user a mis "if s1 == s2 return 1;" */
     if ((ret = ft_strequ(str, "abc")) != 1)
     {
         printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"abc\", \"abc\").\nExpected ret = \"1\" \
@@ -1331,6 +1367,7 @@ int				uf_test_strchr(void)
 
 /*
 ** Not HardCore but better than original
+** Fixes by pmotte
 */
 
 #ifdef	D_STRLCAT

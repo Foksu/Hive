@@ -1,5 +1,11 @@
 #include "libft.h"
 
+static int	ft_iswhitespace(int c)
+{
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+            || c == '\r');
+}
+
 char	*ft_strtrim(char const *s)
 {
     size_t	i;
