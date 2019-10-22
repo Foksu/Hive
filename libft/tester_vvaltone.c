@@ -649,12 +649,10 @@ int main(void) {
         printf("ft_strjoin OK!\n");
         free(retjoin);
     }
-    free(retjoin);
     char			strtrim[] = "  \t    \t\nBon\t \njour\t\n  \n     ";
     char			strtrim2[] = "Bonjour";
     char			strtrim3[] = "  \t\t\t   ";
     char			*rtrim;
-
     ft_strtrim(NULL);
     rtrim = ft_strtrim(strtrim);
     if (strcmp(rtrim, "Bon\t \njour"))
